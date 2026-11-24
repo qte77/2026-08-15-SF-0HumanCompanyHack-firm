@@ -373,7 +373,7 @@ a:hover { color: var(--primary-hover); }
 .section-nav button:hover { color: var(--text); }
 /* One quiet accent: the active section reads in the accent colour so "where am I" pops at a glance. */
 .section-nav button[aria-pressed="true"] { color: var(--primary); background: var(--surface-lift); }
-/* The sfclarity-style section icons show only ≤700px (App-header block below); the text label carries
+/* The icon-only section nav shows icons only ≤700px (App-header block below); the text label carries
    the name on desktop. About is "?" in the bar; its full label appears only inside the hamburger. */
 .section-nav .nav-icon { display: none; width: 18px; height: 18px; flex: none; }
 #about-toggle .act-glyph { font-size: 15px; font-weight: 600; }
@@ -381,7 +381,7 @@ a:hover { color: var(--primary-hover); }
 .app-main { padding-block: 40px 80px; }
 
 /* ==================== App header — Events/Insights/Trip icons + hamburger ==================== */
-/* ≤700px: the section nav drops its text for sfclarity-style icons but STAYS in the bar (three icons fit
+/* ≤700px: the section nav drops its text to go icon-only but STAYS in the bar (three icons fit
    the narrowest phones); the secondary actions (Help + theme) fold into a hamburger dropdown (nav.js).
    The dropdown always holds BOTH rows — never a one-item menu. >700px keeps everything inline with text. */
 @media (max-width: 700px) {
@@ -428,7 +428,7 @@ a:hover { color: var(--primary-hover); }
 }
 @media (max-width: 700px), (max-height: 600px) { .toolbar { --control-h: 44px; } }
 .toolbar[hidden] { display: none; } /* author display:flex beats [hidden]; the Insights/Trip sections have no toolbar */
-/* One centered control bar (sfclarity-aligned): view picker, Upcoming, Group by and Export form a
+/* One centered control bar: view picker, Upcoming, Group by and Export form a
    uniform-height row, centered. Starred (and, on desktop, the count) live in the Filters row below;
    Export is the last item so it stays at the end when Group by / scroll-nav show or hide on a view switch. */
 .control-bar { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; flex: 1 1 100%; }
@@ -541,7 +541,7 @@ a:hover { color: var(--primary-hover); }
 .filter-chip:hover { border-color: var(--text-muted); color: var(--text); }
 .empty-clear { display: block; margin: 0 auto 32px; }
 
-/* Scroll nav — a floating bottom-center PILL (sfclarity-style), detached from the toolbar so
+/* Scroll nav — a floating bottom-center PILL, detached from the toolbar so
    position:fixed is viewport-relative: a "Jump to" menu of the current List group headings + scroll
    ↑/↓. Shown in List/Tiles only (scrollnav.js). The Jump panel opens UPWARD (see .jump-panel). */
 .nav-controls {

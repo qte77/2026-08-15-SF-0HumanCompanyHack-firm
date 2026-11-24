@@ -256,3 +256,7 @@ was fixed here and stayed broken on the client for an hour — and it is kept
 because vendoring a shared stylesheet across two repositories that share no
 build step would couple them more than the bug costs. The rules are marked in
 both files so the next edit is made in both.
+
+## License
+
+[Apache-2.0](LICENSE).

@@ -51,13 +51,16 @@ jobs:
           MODEL_API_KEY: ${{ secrets.MODEL_API_KEY }}
           MODEL_API_BASE: ${{ secrets.MODEL_API_BASE }}
           MODEL_NAME: ${{ vars.MODEL_NAME }}
-        run: uv run company --run-id "${{ inputs.run_id || 'demo' }}"
+          RUN_ID: ${{ inputs.run_id || 'demo' }}
+        run: uv run company --run-id "$RUN_ID"
 
       - name: Report which tier answered
+        env:
+          RUN_ID: ${{ inputs.run_id || 'demo' }}
         run: |
           python3 - <<'PY'
-          import json, pathlib
-          d = pathlib.Path("runs/${{ inputs.run_id || 'demo' }}")
+          import json, os, pathlib
+          d = pathlib.Path(f"runs/{os.environ['RUN_ID']}")
           src = sorted(p for p in d.glob("*.json")
                        if "timing" not in p.name and p.stem != "index")
           last = json.loads(src[-1].read_text())["output"]
@@ -74,20 +77,24 @@ jobs:
       # manual run published a stage list from a previous shape of the pipeline.
 
       - name: Commit the run
+        env:
+          RUN_ID: ${{ inputs.run_id || 'demo' }}
         run: |
           git config user.name "broker-bot"
           git config user.email "broker-bot@users.noreply.github.com"
           git add runs/
-          git diff --staged --quiet || git commit -m "chore(run): ${{ inputs.run_id || 'demo' }}"
+          git diff --staged --quiet || git commit -m "chore(run): $RUN_ID"
           git push origin HEAD:main
 
       # A push made with the default GITHUB_TOKEN does not trigger another
       # workflow, so this publishes the site itself.
       - name: Assemble site
         # One assembly path for all three publishing workflows.
+        env:
+          RUN_ID: ${{ inputs.run_id || 'demo' }}
         run: |
           python3 scripts/build_site.py \
-            --out _site --run-id "${{ inputs.run_id || 'demo' }}"
+            --out _site --run-id "$RUN_ID"
 
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
